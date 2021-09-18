@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/notes"
+        android:enabled="true"
+        android:icon="@drawable/ic_notes_dark"
+        android:title="@string/notes"/>
+    <item
+        android:id="@+id/reminder"
+        android:enabled="true"
+        android:icon="@drawable/ic_reminder_dark"
+        android:title="@string/reminders"/>
+    <item
+        android:id="@+id/settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings_dark"
+        android:title="@string/settings"/>
+    <item
+        android:id="@+id/about"
+        android:enabled="true"
+        android:icon="@drawable/ic_about_dark"
+        android:title="@string/about"/>
+</menu>

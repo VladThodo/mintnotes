@@ -1,0 +1,35 @@
+package com.todo.mintnotes;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import es.dmoral.toasty.Toasty;
+
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Bottom navigation init
+        BottomNavigationView mNavigationView = findViewById(R.id.bottom_navigation);
+        mNavigationView.setOnNavigationItemSelectedListener(this);
+    }
+
+    /** Handle navigation view item selection and switch fragments accordingly */
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        Toasty.success(this, item.getTitle(), Toast.LENGTH_LONG).show();
+
+        return true;
+    }
+}

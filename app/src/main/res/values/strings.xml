@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Mintnotes</string>
+    <string name="notes">Notes</string>
+    <string name="reminders">Reminders</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+</resources>
