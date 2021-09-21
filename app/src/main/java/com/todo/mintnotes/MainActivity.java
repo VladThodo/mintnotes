@@ -2,6 +2,11 @@ package com.todo.mintnotes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,7 +25,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // Bottom navigation init
         BottomNavigationView mNavigationView = findViewById(R.id.bottom_navigation);
-        mNavigationView.setOnNavigationItemSelectedListener(this);
+        NavHostFragment navHostFragment =
+                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_container);
+        NavController navController = navHostFragment.getNavController();
+        NavigationUI.setupWithNavController(mNavigationView, navController);
     }
 
     /** Handle navigation view item selection and switch fragments accordingly */
