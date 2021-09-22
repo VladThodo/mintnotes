@@ -23,7 +23,7 @@ public class AboutFragment extends MaterialAboutFragment {
         MaterialAboutCard.Builder cardBuilder = new MaterialAboutCard.Builder();
         MaterialAboutTitleItem titleItem = new MaterialAboutTitleItem.Builder()
                 .text("Mintnotes")
-                .icon(R.drawable.ic_info_outline_white_24dp)
+                .icon(R.drawable.ic_launcher_foreground)
                 .build();
         cardBuilder.addItem(titleItem);
         MaterialAboutCard card = cardBuilder.build();
