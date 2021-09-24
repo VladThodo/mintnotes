@@ -9,8 +9,7 @@
         android:id="@+id/notes"
         android:name="com.todo.mintnotes.fragments.NotesFragment"
         android:label="@string/notes"
-        tools:layout="@layout/notes_fragment" >
-    </fragment>
+        tools:layout="@layout/notes_fragment" />
 
     <fragment
         android:id="@+id/reminder"

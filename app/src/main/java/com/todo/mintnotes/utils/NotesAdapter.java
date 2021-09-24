@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.todo.mintnotes.R;
@@ -16,24 +17,51 @@ import java.util.List;
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
     private List<Note> mNotesList;
+    private NotesClickListener buttonClickHandler;
 
-    public NotesAdapter(List<Note> notesList){
+    public NotesAdapter(List<Note> notesList, NotesClickListener mListener){
         mNotesList = notesList;
+        buttonClickHandler = mListener;
+    }
+
+    public interface NotesClickListener {
+        void onEditClick(View v, int position);
+        void onDeleteClick(View v, int position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
         private final TextView dateView;
+        private final AppCompatImageButton mEditButton;
+        private final AppCompatImageButton mDeleteButton;
+        private NotesClickListener notesClickListener;
 
         public ViewHolder(View view) {
             super(view);
             textView = view.findViewById(R.id.notes_text);
             dateView = view.findViewById(R.id.date_text);
+            mEditButton = view.findViewById(R.id.notes_edit);
+            mDeleteButton = view.findViewById(R.id.notes_delete);
+
+            mEditButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    notesClickListener.onEditClick(view, getAdapterPosition());
+                }
+            });
+
+            mDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    notesClickListener.onDeleteClick(view, getAdapterPosition());
+                }
+            });
         }
 
-        public TextView getTextView() {
+        public TextView getNoteView() {
             return textView;
         }
+        public TextView getDateView(){ return dateView;  }
     }
 
     @NonNull
@@ -49,14 +77,16 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
-        TextView noteText = holder.textView;
-        TextView dateText = holder.dateView;
+        TextView noteText = holder.getNoteView();
+        TextView dateText = holder.getDateView();
         noteText.setText(mNotesList.get(position).getText());
         dateText.setText("10-09-2021 13:53");
+        holder.notesClickListener = this.buttonClickHandler;
     }
 
     @Override
     public int getItemCount() {
         return mNotesList.size();
     }
+
 }

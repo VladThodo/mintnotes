@@ -41,10 +41,11 @@
                 app:layout_constraintVertical_bias="0.29" />
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/appCompatImageButton"
+                android:id="@+id/notes_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_delete_dark"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_delete_dark"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.555"
@@ -58,7 +59,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:background="@drawable/ic_edit_dark"
+                android:src="@drawable/ic_edit_dark"
+                android:background="?android:attr/selectableItemBackground"
                 app:layout_constraintStart_toEndOf="@+id/notes_text"
                 app:layout_constraintTop_toTopOf="@+id/notes_text"
                 tools:ignore="SpeakableTextPresentCheck" />

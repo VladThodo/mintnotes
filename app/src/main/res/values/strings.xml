@@ -4,4 +4,6 @@
     <string name="reminders">Reminders</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 </resources>
