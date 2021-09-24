@@ -76,6 +76,8 @@ public class NotesFragment extends Fragment implements RecyclerView.OnItemTouchL
         for(NoteDatabaseItem note : notesBox.getAll()){
             Note not = new Note();
             not.setText(note.getText());
+            not.setDate(note.getDate());
+            not.setId(note.getId());
             mNotesList.add(not);
         }
 
@@ -103,7 +105,11 @@ public class NotesFragment extends Fragment implements RecyclerView.OnItemTouchL
     @Override
     public void onEditClick(View v, int position) {
         Log.d("Test", "Edit");
-        mGetContent.launch(new Intent(v.getContext(), EditActivity.class));
+        Intent newIntent = new Intent(getContext(), EditActivity.class);
+        newIntent.putExtra("text", mNotesList.get(position).getText());
+        newIntent.putExtra("isedit", true);
+        newIntent.putExtra("id", mNotesList.get(position).getId());
+        mGetContent.launch(newIntent);
     }
 
     @Override
@@ -115,7 +121,8 @@ public class NotesFragment extends Fragment implements RecyclerView.OnItemTouchL
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        notesBox.removeAll();
+                        NoteDatabaseItem note = notesBox.getAll().get(position);
+                        notesBox.remove(note);
                         updateNotesList();
                     }
                 })
@@ -138,6 +145,8 @@ public class NotesFragment extends Fragment implements RecyclerView.OnItemTouchL
         for(NoteDatabaseItem note : notesBox.getAll()){
             Note not = new Note();
             not.setText(note.getText());
+            not.setDate(note.getDate());
+            not.setId(note.getId());
             mNotesList.add(not);
         }
         mNotesAdapter.notifyDataSetChanged();

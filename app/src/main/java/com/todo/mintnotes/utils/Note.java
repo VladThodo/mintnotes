@@ -3,7 +3,8 @@ package com.todo.mintnotes.utils;
 public class Note {
 
     private String mNoteText;
-    private int mNoteId;
+    private String date;
+    private long mNoteId;
 
     public Note(){}
 
@@ -15,17 +16,17 @@ public class Note {
         return mNoteText;
     }
 
-    public void setDate(){}
+    public void setDate(String mDate){ date = mDate; }
 
     public String getDate(){
-        return "";
+        return date;
     }
 
-    public void setId(int noteId){
+    public void setId(long noteId){
         mNoteId = noteId;
     }
 
-    public int getId(){
+    public long getId(){
         return mNoteId;
     }
 

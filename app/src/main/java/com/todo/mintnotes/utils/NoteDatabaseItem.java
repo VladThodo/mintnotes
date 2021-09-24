@@ -20,4 +20,9 @@ public class NoteDatabaseItem {
         return text;
     }
 
+    public void setDate(String mDate){ date = mDate; }
+
+    public String getDate(){ return date; }
+
+    public long getId() { return itemId; }
 }

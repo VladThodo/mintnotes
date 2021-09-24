@@ -1,6 +1,7 @@
 package com.todo.mintnotes.utils;
 
 import android.content.Context;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.todo.mintnotes.R;
 
 import java.util.List;
+
+import io.noties.markwon.Markwon;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
@@ -79,8 +82,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
         TextView noteText = holder.getNoteView();
         TextView dateText = holder.getDateView();
-        noteText.setText(mNotesList.get(position).getText());
-        dateText.setText("10-09-2021 13:53");
+
+        final Markwon markwon = Markwon.create(holder.getNoteView().getContext());
+
+        final Spanned markdown = markwon.toMarkdown(mNotesList.get(position).getText());
+
+        noteText.setText(markdown);
+        dateText.setText(mNotesList.get(position).getDate());
         holder.notesClickListener = this.buttonClickHandler;
     }
 
