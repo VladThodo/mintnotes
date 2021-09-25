@@ -55,10 +55,15 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     Log.d("DATA","Here's your result");
-                    boolean dataChanged = result.getData().getBooleanExtra("changed", false);
-                    if(dataChanged){
+                    try {
+                        boolean dataChanged = result.getData().getBooleanExtra("changed", false);
+
+                        if (dataChanged) {
+                            Log.d("DATA", "It changed");
+                            updateNotesList();
+                        }
+                    } catch (Exception e) {
                         Log.d("DATA", "It changed");
-                        updateNotesList();
                     }
                 }
             });
