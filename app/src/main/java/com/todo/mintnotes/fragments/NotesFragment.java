@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.todo.mintnotes.EditActivity;
+import com.todo.mintnotes.NoteViewActivity;
 import com.todo.mintnotes.R;
 import com.todo.mintnotes.utils.Note;
 import com.todo.mintnotes.utils.NoteDatabaseItem;
@@ -38,7 +39,7 @@ import java.util.List;
 
 import io.objectbox.Box;
 
-public class NotesFragment extends Fragment implements RecyclerView.OnItemTouchListener, NotesAdapter.NotesClickListener {
+public class NotesFragment extends Fragment implements NotesAdapter.NotesClickListener {
 
     public NotesFragment(){
         super(R.layout.notes_fragment);
@@ -83,23 +84,7 @@ public class NotesFragment extends Fragment implements RecyclerView.OnItemTouchL
 
         mRecyclerView.setAdapter(mNotesAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
-        mRecyclerView.addOnItemTouchListener(this);
         return notesView;
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-
-    }
-
-    @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
     }
 
     @Override
@@ -128,6 +113,14 @@ public class NotesFragment extends Fragment implements RecyclerView.OnItemTouchL
                 })
                 .setNegativeButton(R.string.cancel, null);
         dialogBuilder.show();
+    }
+
+    @Override
+    public void onListClick(View v, int position) {
+        Log.d("CLICK", "I've been clicked");
+        Intent intent = new Intent(getContext(), NoteViewActivity.class);
+        intent.putExtra("noteid", mNotesList.get(position).getId());
+        startActivity(intent);
     }
 
     @Override

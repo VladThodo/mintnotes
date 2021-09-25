@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.todo.mintnotes.R;
@@ -30,6 +33,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     public interface NotesClickListener {
         void onEditClick(View v, int position);
         void onDeleteClick(View v, int position);
+        void onListClick(View v, int position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -37,6 +41,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         private final TextView dateView;
         private final AppCompatImageButton mEditButton;
         private final AppCompatImageButton mDeleteButton;
+        private final ConstraintLayout constraintLayout;
         private NotesClickListener notesClickListener;
 
         public ViewHolder(View view) {
@@ -45,6 +50,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             dateView = view.findViewById(R.id.date_text);
             mEditButton = view.findViewById(R.id.notes_edit);
             mDeleteButton = view.findViewById(R.id.notes_delete);
+            constraintLayout = view.findViewById(R.id.main_layout);
 
             mEditButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -57,6 +63,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 @Override
                 public void onClick(View view) {
                     notesClickListener.onDeleteClick(view, getAdapterPosition());
+                }
+            });
+
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    notesClickListener.onListClick(view, getAdapterPosition());
                 }
             });
         }

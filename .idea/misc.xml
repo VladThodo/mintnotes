@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.29483695652173914" />
         <entry key="app/src/main/res/layout/edit_activity.xml" value="0.171875" />
+        <entry key="app/src/main/res/layout/note_view.xml" value="0.37318840579710144" />
         <entry key="app/src/main/res/layout/notes_fragment.xml" value="0.29483695652173914" />
         <entry key="app/src/main/res/layout/notes_item.xml" value="0.67" />
         <entry key="app/src/main/res/layout/notes_layout.xml" value="0.29483695652173914" />
