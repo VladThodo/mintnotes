@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatEditText
+    <com.todo.mintnotes.views.EditView
         android:layout_width="384dp"
         android:layout_height="565dp"
         android:id="@+id/notesEditText"

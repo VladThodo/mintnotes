@@ -110,4 +110,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return mNotesList.size();
     }
 
+
+
+
 }

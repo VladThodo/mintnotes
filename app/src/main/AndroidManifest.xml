@@ -19,8 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditActivity"/>
-        <activity android:name=".NoteViewActivity"/>
+        <activity android:name=".EditActivity"
+                  android:theme="@style/Theme.MintnotesEdit"
+            />
+        <activity android:name=".NoteViewActivity"
+                  android:theme="@style/Theme.MintnotesEdit"
+            />
     </application>
 
 </manifest>

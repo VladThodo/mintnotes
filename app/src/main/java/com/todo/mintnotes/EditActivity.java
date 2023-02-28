@@ -36,7 +36,8 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle saved){
         super.onCreate(saved);
         setContentView(R.layout.edit_activity);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         try {
             notesEditText = findViewById(R.id.notesEditText);
             notesEditText.setText(getIntent().getExtras().getString("text", ""));
