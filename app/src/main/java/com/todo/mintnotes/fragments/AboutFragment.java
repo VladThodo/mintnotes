@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.todo.mintnotes.R;
 import com.vansuita.materialabout.builder.AboutBuilder;
 import com.vansuita.materialabout.views.AboutView;
-// hi
+// hi again
 public class AboutFragment extends Fragment {
 
     @Nullable
