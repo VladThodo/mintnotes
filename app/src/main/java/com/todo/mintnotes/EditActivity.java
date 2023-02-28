@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.todo.mintnotes.utils.NoteDatabaseItem;
 import com.todo.mintnotes.utils.ObjectBox;
 
@@ -19,6 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import es.dmoral.toasty.Toasty;
 import io.objectbox.Box;
 
 public class EditActivity extends AppCompatActivity {
@@ -33,7 +36,7 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle saved){
         super.onCreate(saved);
         setContentView(R.layout.edit_activity);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         try {
             notesEditText = findViewById(R.id.notesEditText);
             notesEditText.setText(getIntent().getExtras().getString("text", ""));
@@ -43,6 +46,23 @@ public class EditActivity extends AppCompatActivity {
             Log.d("Error", e.toString());
         }
         mNotesBox = ObjectBox.get().boxFor(NoteDatabaseItem.class);
+
+        FloatingActionButton mFloatingActionButton = findViewById(R.id.save_fab);
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NoteDatabaseItem note = new NoteDatabaseItem();
+                note.setText(notesEditText.getText().toString());
+                note.setDate(new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(new Date()));
+                if(!isEdit) {
+                    mNotesBox.put(note);
+                } else {
+                    mNotesBox.remove(noteEditId);
+                    mNotesBox.put(note);
+                }
+                Toasty.success(getApplicationContext(), "Note saved").show();
+            }
+        });
     }
 
     @Override

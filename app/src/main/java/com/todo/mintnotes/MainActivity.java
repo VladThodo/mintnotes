@@ -8,12 +8,15 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.dmoral.toasty.Toasty;
 @SuppressWarnings("deprecation")
@@ -30,6 +33,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_container);
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupWithNavController(mNavigationView, navController);
+
+        FloatingActionButton mButton = findViewById(R.id.action_fab);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), EditActivity.class));
+            }
+        });
     }
 
 
