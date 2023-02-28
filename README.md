@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/VladThodo/mintnotes/tree/master.svg?style=svg)](https://circleci.com/gh/VladThodo/mintnotes/?branch=master)
+
 # Mintnotes
 Minimal, free, open-source android notes app. Built for fun.
 
