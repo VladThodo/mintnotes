@@ -35,7 +35,7 @@ public class NoteViewActivity extends AppCompatActivity {
             this.finish();
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      //  getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView textView = findViewById(R.id.noteViewTextView);
         Markwon markwon = Markwon.create(this);
