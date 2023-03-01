@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     setMainNav();
                     if(((MintNotesApp) getApplication()).isNoteTextChanged()){
                         saveCurrentNote();
+                    } else {
+                        Toasty.normal(getApplicationContext(), "Empty note not saved").show();
                     }
                     navController.navigate(R.id.edit_to_notes);
                     isEdit = false;
