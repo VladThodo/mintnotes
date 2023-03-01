@@ -17,7 +17,6 @@ import com.todo.mintnotes.utils.NoteDatabaseItem;
 import com.todo.mintnotes.utils.ObjectBox;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -35,7 +34,7 @@ public class EditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle saved){
         super.onCreate(saved);
-        setContentView(R.layout.edit_activity);
+        setContentView(R.layout.edit_fragment);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         try {
@@ -47,23 +46,6 @@ public class EditActivity extends AppCompatActivity {
             Log.d("Error", e.toString());
         }
         mNotesBox = ObjectBox.get().boxFor(NoteDatabaseItem.class);
-
-        FloatingActionButton mFloatingActionButton = findViewById(R.id.save_fab);
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NoteDatabaseItem note = new NoteDatabaseItem();
-                note.setText(notesEditText.getText().toString());
-                note.setDate(new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(new Date()));
-                if(!isEdit) {
-                    mNotesBox.put(note);
-                } else {
-                    mNotesBox.remove(noteEditId);
-                    mNotesBox.put(note);
-                }
-                Toasty.success(getApplicationContext(), "Note saved").show();
-            }
-        });
     }
 
     @Override

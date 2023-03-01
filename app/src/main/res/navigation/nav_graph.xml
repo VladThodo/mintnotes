@@ -9,7 +9,12 @@
         android:id="@+id/notes"
         android:name="com.todo.mintnotes.fragments.NotesFragment"
         android:label="@string/notes"
-        tools:layout="@layout/notes_fragment" />
+        tools:layout="@layout/notes_fragment">
+
+        <action android:id="@+id/notes_to_edit"
+                app:destination="@id/edit"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/reminder"
@@ -28,4 +33,12 @@
         android:name="com.todo.mintnotes.fragments.AboutFragment"
         android:label="@string/about" />
 
+    <fragment
+        android:id="@+id/edit"
+        android:name="com.todo.mintnotes.fragments.EditFragment"
+        android:label="Edit">
+
+        <action android:id="@+id/edit_to_notes"
+                app:destination="@id/notes"/>
+    </fragment>
 </navigation>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/insert_code"
+        android:enabled="true"
+        android:icon="@drawable/baseline_code_24"
+        android:title="Code"/>
+    <item
+        android:id="@+id/bold"
+        android:enabled="true"
+        android:icon="@drawable/baseline_format_bold_24"
+        android:title="@string/settings"/>
+    <item
+        android:id="@+id/italic"
+        android:enabled="true"
+        android:icon="@drawable/ic_about_dark"
+        android:title="@string/about"/>
+</menu>

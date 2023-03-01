@@ -93,6 +93,13 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
     }
 
     @Override
+    public void onResume() {
+        updateNotesList();
+        Log.d("UPDATE", "Notes list updated on resume");
+        super.onResume();
+    }
+
+    @Override
     public void onEditClick(View v, int position) {
         Log.d("Test", "Edit");
         Intent newIntent = new Intent(getContext(), EditActivity.class);
