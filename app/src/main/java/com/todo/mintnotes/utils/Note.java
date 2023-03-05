@@ -4,6 +4,9 @@ public class Note {
 
     private String mNoteText;
     private String date;
+
+    private int position;
+
     private long mNoteId;
 
     public Note(){}
@@ -29,5 +32,9 @@ public class Note {
     public long getId(){
         return mNoteId;
     }
+
+    public void setPosition(int position){ this.position = position; }
+
+    public int getPosition(){ return this.position; }
 
 }

@@ -21,6 +21,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,7 @@ import com.todo.mintnotes.NoteViewActivity;
 import com.todo.mintnotes.R;
 import com.todo.mintnotes.utils.Note;
 import com.todo.mintnotes.utils.NoteDatabaseItem;
+import com.todo.mintnotes.utils.NoteMoveCallback;
 import com.todo.mintnotes.utils.NotesAdapter;
 import com.todo.mintnotes.utils.ObjectBox;
 
@@ -39,7 +41,7 @@ import java.util.List;
 
 import io.objectbox.Box;
 
-public class NotesFragment extends Fragment implements NotesAdapter.NotesClickListener {
+public class NotesFragment extends Fragment implements NotesAdapter.NotesClickListener, NoteMoveCallback.NotesGesturesListener {
 
     public NotesFragment(){
         super(R.layout.notes_fragment);
@@ -89,6 +91,12 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
 
         mRecyclerView.setAdapter(mNotesAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
+
+        NoteMoveCallback mNoteMove = new NoteMoveCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT, this);
+        ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(mNoteMove);
+
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
+
         return notesView;
     }
 
@@ -111,7 +119,6 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
 
     @Override
     public void onDeleteClick(View v, int position) {
-        Log.d("Test", "Delete");
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(v.getContext())
                 .setTitle("Are you sure?")
                 .setMessage("Do you want to delete this note?")
@@ -120,7 +127,7 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
                     public void onClick(DialogInterface dialogInterface, int i) {
                         NoteDatabaseItem note = notesBox.getAll().get(position);
                         notesBox.remove(note);
-                        updateNotesList();
+                        mNotesAdapter.notifyItemRemoved(position);
                     }
                 })
                 .setNegativeButton(R.string.cancel, null);
@@ -158,4 +165,20 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
     }
 
 
+    @Override
+    public void onNoteDeleted(int position) {
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(getContext())
+                .setTitle("Are you sure?")
+                .setMessage("Do you want to delete this note?")
+                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        NoteDatabaseItem note = notesBox.getAll().get(position);
+                        notesBox.remove(note);
+                        updateNotesList();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null);
+        dialogBuilder.show();
+    }
 }

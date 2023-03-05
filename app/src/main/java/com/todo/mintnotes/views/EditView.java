@@ -12,12 +12,10 @@ import androidx.annotation.Nullable;
 public class EditView extends androidx.appcompat.widget.AppCompatEditText {
     public EditView(@NonNull Context context) {
         super(context);
-        this.setBackgroundResource(android.R.color.transparent);
     }
 
     public EditView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        this.setBackgroundResource(android.R.color.transparent);
     }
 
 

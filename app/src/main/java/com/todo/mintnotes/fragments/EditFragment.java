@@ -23,7 +23,11 @@ import com.todo.mintnotes.views.EditView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.Executors;
 
+import io.noties.markwon.Markwon;
+import io.noties.markwon.editor.MarkwonEditor;
+import io.noties.markwon.editor.MarkwonEditorTextWatcher;
 import io.objectbox.Box;
 
 public class EditFragment extends Fragment {
@@ -43,6 +47,11 @@ public class EditFragment extends Fragment {
         View editView = inflater.inflate(R.layout.edit_fragment, container, false);
         ((MintNotesApp) getActivity().getApplication()).setNoteTextChanged(false);
         mEditView = editView.findViewById(R.id.notesEditText);
+        Markwon markwon = Markwon.create(getContext());
+        MarkwonEditor mEditor = MarkwonEditor.create(markwon);
+
+        mEditView.addTextChangedListener(MarkwonEditorTextWatcher.withPreRender(mEditor, Executors.newCachedThreadPool(), mEditView));
+
         mEditView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

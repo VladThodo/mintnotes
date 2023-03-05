@@ -12,6 +12,8 @@ public class NoteDatabaseItem {
     String text;
     String date;
 
+    int pos;
+
     public void setText(String noteText){
         text = noteText;
     }
@@ -25,4 +27,8 @@ public class NoteDatabaseItem {
     public String getDate(){ return date; }
 
     public long getId() { return itemId; }
+
+    public void setPosition(int pos){ this.pos = pos; }
+
+    public int getPosition() { return this.pos; }
 }

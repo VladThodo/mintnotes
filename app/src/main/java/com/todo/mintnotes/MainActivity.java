@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     EditFragment mEditFragment;
 
     protected boolean isEdit = false;
+    protected boolean isNotes = true;
 
     Box<NoteDatabaseItem> mNotesBox = ObjectBox.get().boxFor(NoteDatabaseItem.class);
 
@@ -63,10 +64,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isEdit) {
+                if(!isEdit & isNotes) {
                     navController.navigate(R.id.notes_to_edit);
                     isEdit = true;
-                } else {
+                } else if(isEdit){
                     setMainNav();
                     if(((MintNotesApp) getApplication()).isNoteTextChanged()){
                         saveCurrentNote();
@@ -83,7 +84,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 if (destination.getId() == R.id.edit) {
+                    isNotes = false;
+                    isEdit = true;
                     setNavForEdit();
+                } else if(destination.getId() == R.id.reminder){
+                    isNotes = false;
+                    mainButton.setImageResource(R.drawable.baseline_alarm_on_24);
+                } else if(destination.getId() == R.id.notes){
+                    isNotes = true;
+                    mainButton.setImageResource(R.drawable.ic_edit_dark);
+                } else {
+                    isNotes = false;
                 }
             }
         });
@@ -93,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void onBackPressed() {
         if(isEdit){
             isEdit = false;
+            isNotes = true;
             setMainNav();
         }
         super.onBackPressed();
