@@ -16,6 +16,7 @@ public class NoteMoveCallback extends ItemTouchHelper.SimpleCallback {
 
     public interface NotesGesturesListener {
         void onNoteDeleted(int position);
+        void onNoteMoved(int newPosition, int formerPosition, long noteId);
     }
 
     /**
@@ -43,6 +44,8 @@ public class NoteMoveCallback extends ItemTouchHelper.SimpleCallback {
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
         final int from = viewHolder.getAbsoluteAdapterPosition();
         final int to   = target.getAbsoluteAdapterPosition();
+        final long noteId = notesBox.getAll().get(from).getId();
+        mGestureListener.onNoteMoved(to, from, noteId);
         recyclerView.getAdapter().notifyItemMoved(from, to);
         return true;
     }

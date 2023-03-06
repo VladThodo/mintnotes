@@ -48,6 +48,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     Box<NoteDatabaseItem> mNotesBox = ObjectBox.get().boxFor(NoteDatabaseItem.class);
 
+    protected NoteEditControlsListener mEditListener;
+
+    public interface NoteEditControlsListener {
+        void onCodePress();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +123,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         Toasty.success(this, item.getTitle(), Toast.LENGTH_LONG).show();
 
+        switch(item.getItemId()){
+            case R.id.insert_code:
+                mEditListener.onCodePress();
+                Log.d("Pressed", "Pressed");
+                break;
+            default:
+        }
         return true;
     }
 
@@ -133,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         NoteDatabaseItem note = new NoteDatabaseItem();
         note.setText(((MintNotesApp) this.getApplication()).getCurrentNoteText());
         note.setDate(new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(new Date()));
+        note.setPosition(mNotesBox.getAll().size());
         if(!isEdit) {
             mNotesBox.put(note);
         } else {

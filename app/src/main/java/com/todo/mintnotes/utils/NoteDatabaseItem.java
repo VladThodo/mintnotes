@@ -1,5 +1,6 @@
 package com.todo.mintnotes.utils;
 
+import io.objectbox.annotation.DefaultValue;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 

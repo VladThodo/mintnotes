@@ -41,8 +41,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
         private final TextView dateView;
-        private final AppCompatImageButton mEditButton;
-        private final AppCompatImageButton mDeleteButton;
+
+        private final CardView cardView;
+
         private final ConstraintLayout constraintLayout;
         private NotesClickListener notesClickListener;
 
@@ -50,23 +51,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             super(view);
             textView = view.findViewById(R.id.notes_text);
             dateView = view.findViewById(R.id.date_text);
-            mEditButton = view.findViewById(R.id.notes_edit);
-            mDeleteButton = view.findViewById(R.id.notes_delete);
             constraintLayout = view.findViewById(R.id.main_layout);
-
-            mEditButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    notesClickListener.onEditClick(view, getAdapterPosition());
-                }
-            });
-
-            mDeleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    notesClickListener.onDeleteClick(view, getAdapterPosition());
-                }
-            });
+            cardView = view.findViewById(R.id.card_view);
 
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -44,29 +44,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.226" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/notes_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:src="@drawable/ic_edit_dark"
-                app:layout_constraintEnd_toStartOf="@+id/notes_delete"
-                app:layout_constraintTop_toTopOf="@+id/notes_delete"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/notes_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:src="@drawable/ic_delete_dark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
-
             <TextView
                 android:id="@+id/date_text"
                 android:layout_width="wrap_content"

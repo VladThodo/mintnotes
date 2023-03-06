@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.todo.mintnotes.EditActivity;
+import com.todo.mintnotes.MainActivity;
 import com.todo.mintnotes.NoteViewActivity;
 import com.todo.mintnotes.R;
 import com.todo.mintnotes.utils.Note;
@@ -37,15 +38,17 @@ import com.todo.mintnotes.utils.NotesAdapter;
 import com.todo.mintnotes.utils.ObjectBox;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.objectbox.Box;
 
-public class NotesFragment extends Fragment implements NotesAdapter.NotesClickListener, NoteMoveCallback.NotesGesturesListener {
+public class NotesFragment extends Fragment implements NotesAdapter.NotesClickListener, NoteMoveCallback.NotesGesturesListener, MainActivity.NoteEditControlsListener {
 
-    public NotesFragment(){
+    public NotesFragment() {
         super(R.layout.notes_fragment);
     }
+
     private final Context mContext = this.getContext();
     private List<Note> mNotesList = new ArrayList<>();
     NotesAdapter mNotesAdapter = new NotesAdapter(mNotesList, this);
@@ -56,7 +59,7 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    Log.d("DATA","Here's your result");
+                    Log.d("DATA", "Here's your result");
                     try {
                         boolean dataChanged = result.getData().getBooleanExtra("changed", false);
 
@@ -81,7 +84,7 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
 
         setHasOptionsMenu(true);
 
-        for(NoteDatabaseItem note : notesBox.getAll()){
+        for (NoteDatabaseItem note : notesBox.getAll()) {
             Note not = new Note();
             not.setText(note.getText());
             not.setDate(note.getDate());
@@ -144,7 +147,7 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.notes_edit_main:
                 mGetContent.launch(new Intent(getContext(), EditActivity.class));
                 break;
@@ -152,16 +155,23 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateNotesList(){
+    private void updateNotesList() {
         mNotesList.clear();
-        for(NoteDatabaseItem note : notesBox.getAll()){
+        for (NoteDatabaseItem note : notesBox.getAll()) {
             Note not = new Note();
             not.setText(note.getText());
             not.setDate(note.getDate());
             not.setId(note.getId());
             mNotesList.add(not);
         }
+        orderNotes();
         mNotesAdapter.notifyDataSetChanged();
+    }
+
+    private void orderNotes() {
+        for (int i = 0; i < mNotesList.size(); i++) {
+            Collections.swap(mNotesList, i, notesBox.getAll().get(i).getPosition());
+        }
     }
 
 
@@ -178,7 +188,29 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
                         updateNotesList();
                     }
                 })
-                .setNegativeButton(R.string.cancel, null);
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        updateNotesList();
+                    }
+                });
         dialogBuilder.show();
+    }
+
+    @Override
+    public void onNoteMoved(int newPosition, int formerPosition, long noteId) {
+        NoteDatabaseItem currentItem = notesBox.get(noteId);
+        Log.d("MOVED new: " + currentItem.getText(), String.valueOf(newPosition));
+        currentItem.setPosition(newPosition);
+        notesBox.put(currentItem);
+        Log.d("MOVED", String.valueOf(notesBox.get(noteId).getPosition()));
+        for (NoteDatabaseItem k : notesBox.getAll()) {
+            Log.d("NOTE", k.getText() + " pos: " + String.valueOf(k.getPosition()));
+        }
+    }
+
+    @Override
+    public void onCodePress() {
+        Log.d("HI", "HELLLP");
     }
 }
