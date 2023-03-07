@@ -5,6 +5,8 @@ public class Note {
     private String mNoteText;
     private String date;
 
+    private long id;
+
     private int position;
 
     private long mNoteId;

@@ -32,6 +32,7 @@ import com.todo.mintnotes.MainActivity;
 import com.todo.mintnotes.NoteViewActivity;
 import com.todo.mintnotes.R;
 import com.todo.mintnotes.utils.Note;
+import com.todo.mintnotes.utils.NoteComparator;
 import com.todo.mintnotes.utils.NoteDatabaseItem;
 import com.todo.mintnotes.utils.NoteMoveCallback;
 import com.todo.mintnotes.utils.NotesAdapter;
@@ -43,7 +44,7 @@ import java.util.List;
 
 import io.objectbox.Box;
 
-public class NotesFragment extends Fragment implements NotesAdapter.NotesClickListener, NoteMoveCallback.NotesGesturesListener, MainActivity.NoteEditControlsListener {
+public class NotesFragment extends Fragment implements NotesAdapter.NotesClickListener, MainActivity.NoteEditControlsListener {
 
     public NotesFragment() {
         super(R.layout.notes_fragment);
@@ -83,22 +84,10 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
         RecyclerView mRecyclerView = notesView.findViewById(R.id.notes_view);
 
         setHasOptionsMenu(true);
-
-        for (NoteDatabaseItem note : notesBox.getAll()) {
-            Note not = new Note();
-            not.setText(note.getText());
-            not.setDate(note.getDate());
-            not.setId(note.getId());
-            mNotesList.add(not);
-        }
+        populateDataList();
 
         mRecyclerView.setAdapter(mNotesAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(container.getContext()));
-
-        NoteMoveCallback mNoteMove = new NoteMoveCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT, this);
-        ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(mNoteMove);
-
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         return notesView;
     }
@@ -155,58 +144,38 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateNotesList() {
+    private void populateDataList(){
         mNotesList.clear();
-        for (NoteDatabaseItem note : notesBox.getAll()) {
+
+        // Build empty notes list the size of our notes
+
+        /*for(int i = 0; i < notesBox.getAll().size(); i++){
+            mNotesList.add(new Note());
+        }*/
+
+        // Populate with notes at correct indexes
+
+        for(NoteDatabaseItem note : notesBox.getAll()){
             Note not = new Note();
             not.setText(note.getText());
             not.setDate(note.getDate());
             not.setId(note.getId());
+            not.setPosition(note.getPosition());
             mNotesList.add(not);
         }
+
+        Collections.sort(mNotesList, new NoteComparator());
+    }
+
+    private void updateNotesList() {
+        populateDataList();
         orderNotes();
+        Log.d("NOTES", "ordered");
         mNotesAdapter.notifyDataSetChanged();
     }
 
     private void orderNotes() {
-        for (int i = 0; i < mNotesList.size(); i++) {
-            Collections.swap(mNotesList, i, notesBox.getAll().get(i).getPosition());
-        }
-    }
 
-
-    @Override
-    public void onNoteDeleted(int position) {
-        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(getContext())
-                .setTitle("Are you sure?")
-                .setMessage("Do you want to delete this note?")
-                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        NoteDatabaseItem note = notesBox.getAll().get(position);
-                        notesBox.remove(note);
-                        updateNotesList();
-                    }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        updateNotesList();
-                    }
-                });
-        dialogBuilder.show();
-    }
-
-    @Override
-    public void onNoteMoved(int newPosition, int formerPosition, long noteId) {
-        NoteDatabaseItem currentItem = notesBox.get(noteId);
-        Log.d("MOVED new: " + currentItem.getText(), String.valueOf(newPosition));
-        currentItem.setPosition(newPosition);
-        notesBox.put(currentItem);
-        Log.d("MOVED", String.valueOf(notesBox.get(noteId).getPosition()));
-        for (NoteDatabaseItem k : notesBox.getAll()) {
-            Log.d("NOTE", k.getText() + " pos: " + String.valueOf(k.getPosition()));
-        }
     }
 
     @Override

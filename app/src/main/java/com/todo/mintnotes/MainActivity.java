@@ -1,9 +1,6 @@
 package com.todo.mintnotes;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -165,5 +162,4 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.getMenu().clear();
         bottomNavigationView.inflateMenu(R.menu.bottom_navigation_menu);
     }
-
 }

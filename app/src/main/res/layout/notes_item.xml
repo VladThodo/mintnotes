@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="2dp"
         app:cardElevation="6dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
@@ -23,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?android:attr/selectableItemBackground"
@@ -39,10 +40,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/notes_edit"
                 app:layout_constraintHorizontal_bias="0.064"
-                app:layout_constraintWidth_max="250dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.226" />
+                app:layout_constraintVertical_bias="0.226"
+                app:layout_constraintWidth_max="250dp" />
 
             <TextView
                 android:id="@+id/date_text"
@@ -58,6 +59,16 @@
                 app:layout_constraintVertical_bias="0.062" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/time_view"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_green"
+            app:layout_constraintTop_toTopOf="@id/card_view"
+            app:layout_constraintBottom_toBottomOf="@id/card_view"
+            app:layout_constraintEnd_toStartOf="@+id/notes_text"
+            app:layout_constraintStart_toStartOf="@id/card_view" />
 
     </androidx.cardview.widget.CardView>
 

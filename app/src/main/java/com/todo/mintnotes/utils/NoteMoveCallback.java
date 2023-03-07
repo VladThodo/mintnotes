@@ -46,7 +46,6 @@ public class NoteMoveCallback extends ItemTouchHelper.SimpleCallback {
         final int to   = target.getAbsoluteAdapterPosition();
         final long noteId = notesBox.getAll().get(from).getId();
         mGestureListener.onNoteMoved(to, from, noteId);
-        recyclerView.getAdapter().notifyItemMoved(from, to);
         return true;
     }
 
@@ -54,8 +53,4 @@ public class NoteMoveCallback extends ItemTouchHelper.SimpleCallback {
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         mGestureListener.onNoteDeleted(viewHolder.getAbsoluteAdapterPosition());
     }
-
-
-
-
 }
