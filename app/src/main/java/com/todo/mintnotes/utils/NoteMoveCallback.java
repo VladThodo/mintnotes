@@ -1,6 +1,7 @@
 package com.todo.mintnotes.utils;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,8 @@ public class NoteMoveCallback extends ItemTouchHelper.SimpleCallback {
     public interface NotesGesturesListener {
         void onNoteDeleted(int position);
         void onNoteMoved(int newPosition, int formerPosition, long noteId);
+
+        void onNoteSelected(int notePosition);
     }
 
     /**
@@ -52,5 +55,10 @@ public class NoteMoveCallback extends ItemTouchHelper.SimpleCallback {
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         mGestureListener.onNoteDeleted(viewHolder.getAbsoluteAdapterPosition());
+    }
+
+    @Override
+    public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
+        super.onSelectedChanged(viewHolder, actionState);
     }
 }

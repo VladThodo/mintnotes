@@ -21,16 +21,13 @@ public class AboutFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         AboutView mview = AboutBuilder.with(this.getContext())
-                .setPhoto(R.mipmap.profile_picture)
-                .setCover(R.mipmap.profile_cover)
                 .setName("t0d0")
                 .setSubTitle("Random nerd")
                 .setBrief("I make stuff")
                 .setAppIcon(R.mipmap.ic_launcher)
                 .setAppName(R.string.app_name)
                 .addGooglePlayStoreLink("8002078663318221363")
-                .addGitHubLink("user")
-                .addFacebookLink("user")
+                .addGitHubLink("VladThodo")
                 .addFiveStarsAction()
                 .setVersionNameAsAppSubTitle()
                 .addShareAction(R.string.app_name)

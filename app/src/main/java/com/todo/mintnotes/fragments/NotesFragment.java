@@ -147,14 +147,6 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
     private void populateDataList(){
         mNotesList.clear();
 
-        // Build empty notes list the size of our notes
-
-        /*for(int i = 0; i < notesBox.getAll().size(); i++){
-            mNotesList.add(new Note());
-        }*/
-
-        // Populate with notes at correct indexes
-
         for(NoteDatabaseItem note : notesBox.getAll()){
             Note not = new Note();
             not.setText(note.getText());
@@ -169,13 +161,7 @@ public class NotesFragment extends Fragment implements NotesAdapter.NotesClickLi
 
     private void updateNotesList() {
         populateDataList();
-        orderNotes();
-        Log.d("NOTES", "ordered");
         mNotesAdapter.notifyDataSetChanged();
-    }
-
-    private void orderNotes() {
-
     }
 
     @Override

@@ -76,6 +76,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         notifyItemMoved(newPosition, formerPosition);
     }
 
+    @Override
+    public void onNoteSelected(int notePosition) {
+        Log.d("Selected note at position: ", String.valueOf(notePosition));
+    }
+
     public interface NotesClickListener {
         void onEditClick(View v, int position);
 
@@ -143,26 +148,22 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
         String dateNow = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(new Date());
+
         try {
             Date d1 = dateFormat.parse(mNotesList.get(position).getDate());
             Date d2 = dateFormat.parse(dateNow);
 
-            Log.d("HU", "TRYING THIS");
-
             if(TimeUnit.MILLISECONDS.toMinutes(d2.getTime() - d1.getTime()) > 5){
                 timeView.setBackgroundColor(Color.YELLOW);
-                Log.d("HU", "TRYING THIS in ifff");
             }
 
             if(TimeUnit.MILLISECONDS.toMinutes(d2.getTime() - d1.getTime()) > 10){
                 timeView.setBackgroundColor(Color.RED);
-                Log.d("HU", "TRYING THIS in ifff");
             }
 
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-
         holder.notesClickListener = this.buttonClickHandler;
     }
 
